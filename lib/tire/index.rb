@@ -334,10 +334,14 @@ module Tire
         id       = get_id_from_document(document) || document
       end
       raise ArgumentError, "Please pass a document ID" unless id
-
+      Rails.logger.info "[Tire::Index.remove] Document to be deleted type:'#{type}' id:'#{id}'"
       url    = "#{self.url}/#{type}/#{Utils.escape(id)}"
       result = Configuration.client.delete url
-      MultiJson.decode(result.body) if result.success?
+      if result.success?
+        MultiJson.decode(result.body) 
+      else
+        Rails.logger.warn "[Tire::Index.remove] Document NOT removed type:'#{type}' id:'#{id}' url:'#{url}'"
+      end
 
     ensure
       curl = %Q|curl -X DELETE "#{url}"|
