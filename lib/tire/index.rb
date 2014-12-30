@@ -345,7 +345,7 @@ module Tire
 
     ensure
       curl = %Q|curl -X DELETE "#{url}"|
-      Rails.logger.warn "[Tire::Index.remove] curl response: '#{curl}'"
+      Rails.logger.info "[Tire::Index.remove] curl response: '#{curl}'"
       logged("#{type}/#{id}", curl)
     end
 
