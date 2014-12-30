@@ -340,7 +340,7 @@ module Tire
       if result.success?
         MultiJson.decode(result.body) 
       else
-        Rails.logger.warn "[Tire::Index.remove] Document NOT removed type:'#{type}' id:'#{id}' url:'#{url}'"
+        Rails.logger.warn "[Tire::Index.remove] Document NOT removed type:'#{type}' id:'#{id}' url:'#{url}' response: '#{response.inspect}'"
       end
 
     ensure
